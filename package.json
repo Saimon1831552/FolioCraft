@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-website-builder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^3.4.18"
+  },
+  "dependencies": {
+    "caniuse-lite": "^1.0.30001754",
+    "lucide": "^0.553.0"
+  }
+}

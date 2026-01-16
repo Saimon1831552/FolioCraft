@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - FolioCraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 500: '#0ea5e9', 600: '#0284c7' },
+                        dark: { 950: '#020617', 900: '#0f172a', 800: '#1e293b', 700: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-950 text-white min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 bg-dark-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2">
+                    <i data-lucide="layers" class="h-6 w-6 text-brand-500"></i>
+                    <span class="font-bold text-lg">FolioCraft</span>
+                </a>
+
+                <!-- User Actions -->
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:flex flex-col items-end mr-2">
+                        <span id="user-name-display" class="text-sm font-semibold text-white">Loading...</span>
+                        <span id="user-plan-display" class="text-xs text-brand-500 uppercase font-bold tracking-wider">Creator</span>
+                    </div>
+                    <div class="h-8 w-8 rounded-full bg-brand-600 flex items-center justify-center text-sm font-bold border border-white/20" id="user-avatar">
+                        U
+                    </div>
+                    <button id="logout-btn" class="text-sm text-gray-400 hover:text-white transition-colors">
+                        <i data-lucide="log-out" class="h-5 w-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-end md:items-center mb-10 gap-4">
+            <div>
+                <h1 class="text-3xl font-bold">My Templates</h1>
+                <p class="text-gray-400 mt-1">Manage, edit, and publish your designed portfolios.</p>
+            </div>
+            <a href="templates.html" class="flex items-center gap-2 bg-brand-600 hover:bg-brand-500 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-lg shadow-brand-500/20 hover:scale-105">
+                <i data-lucide="plus" class="h-5 w-5"></i>
+                Create New Template
+            </a>
+        </div>
+
+        <!-- Projects Grid -->
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Loading State -->
+            <div class="col-span-full text-center py-20 text-gray-500 animate-pulse">
+                Loading templates...
+            </div>
+        </div>
+
+        <!-- Empty State Template (Hidden) -->
+        <template id="empty-state-template">
+            <div class="col-span-full flex flex-col items-center justify-center py-20 border-2 border-dashed border-dark-700 rounded-xl bg-dark-900/30">
+                <div class="w-16 h-16 bg-dark-800 rounded-full flex items-center justify-center mb-4">
+                    <i data-lucide="folder-open" class="h-8 w-8 text-gray-500"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">No templates yet</h3>
+                <p class="text-gray-400 mb-6 max-w-sm text-center">Start building your personal brand today.</p>
+                <a href="templates.html" class="text-brand-500 hover:text-brand-400 font-medium">Create Template &rarr;</a>
+            </div>
+        </template>
+
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

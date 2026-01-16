@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select a Template - FolioCraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide script removed from here -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 500: '#0ea5e9', 600: '#0284c7' },
+                        dark: { 900: '#0f172a', 800: '#1e293b', 700: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-900 text-white min-h-screen flex flex-col">
+
+    <!-- Nav -->
+    <nav class="w-full bg-dark-900 border-b border-dark-700 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-white hover:text-brand-500 transition-colors">
+                <i data-lucide="arrow-left" class="h-5 w-5"></i>
+                <span class="font-semibold">Back to Home</span>
+            </a>
+            <span class="text-gray-400 text-sm">Step 1 of 2: Choose a base</span>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-12 w-full">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl font-bold mb-4">Choose a Template</h1>
+            <p class="text-gray-400">Start with a professionally designed layout or build from scratch.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Blank Template -->
+            <div class="group relative bg-dark-800 rounded-xl border-2 border-dashed border-dark-700 hover:border-brand-500 transition-all overflow-hidden flex flex-col justify-center items-center h-80">
+                <div class="bg-dark-700 p-4 rounded-full mb-4 group-hover:scale-110 transition-transform">
+                    <i data-lucide="plus" class="h-8 w-8 text-gray-400 group-hover:text-white"></i>
+                </div>
+                <h3 class="text-xl font-semibold">Blank Canvas</h3>
+                <p class="text-gray-500 text-sm mt-2">Build entirely from scratch</p>
+                <a href="builder.html?template=blank" class="absolute inset-0 z-10"></a>
+            </div>
+
+            <!-- Template 1 -->
+            <div class="group bg-dark-800 rounded-xl border border-dark-700 overflow-hidden hover:shadow-2xl hover:shadow-brand-500/20 transition-all">
+                <div class="h-48 bg-gray-700 relative overflow-hidden">
+                    <!-- Mockup Content -->
+                    <div class="w-full h-full bg-gradient-to-br from-gray-800 to-black p-4 flex flex-col items-center justify-center">
+                        <div class="w-20 h-20 rounded-full bg-gray-600 mb-2 border-2 border-white"></div>
+                        <div class="h-2 w-32 bg-gray-600 rounded"></div>
+                        <div class="mt-4 flex gap-2">
+                            <div class="h-16 w-12 bg-gray-700 rounded"></div>
+                            <div class="h-16 w-12 bg-gray-700 rounded"></div>
+                            <div class="h-16 w-12 bg-gray-700 rounded"></div>
+                        </div>
+                    </div>
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="bg-brand-600 text-white px-4 py-2 rounded-full font-medium">Use Template</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold">The Minimalist</h3>
+                    <p class="text-gray-400 text-sm mt-1">Clean, photo-centric design for photographers.</p>
+                    <a href="builder.html?template=minimal" class="mt-4 block w-full text-center bg-dark-700 hover:bg-brand-600 text-white py-2 rounded-lg transition-colors">Select</a>
+                </div>
+            </div>
+
+            <!-- Template 2 -->
+            <div class="group bg-dark-800 rounded-xl border border-dark-700 overflow-hidden hover:shadow-2xl hover:shadow-brand-500/20 transition-all">
+                <div class="h-48 bg-gray-700 relative overflow-hidden">
+                    <!-- Mockup Content -->
+                    <div class="w-full h-full bg-white p-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="h-4 w-12 bg-black rounded"></div>
+                            <div class="flex gap-1"><div class="h-2 w-8 bg-gray-300"></div></div>
+                        </div>
+                        <div class="h-8 w-3/4 bg-blue-600 rounded mb-2"></div>
+                        <div class="h-2 w-full bg-gray-200 rounded mb-1"></div>
+                        <div class="h-2 w-1/2 bg-gray-200 rounded"></div>
+                    </div>
+                     <!-- Overlay -->
+                     <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="bg-brand-600 text-white px-4 py-2 rounded-full font-medium">Use Template</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold">SaaS Landing</h3>
+                    <p class="text-gray-400 text-sm mt-1">High conversion layout for products and startups.</p>
+                    <a href="builder.html?template=saas" class="mt-4 block w-full text-center bg-dark-700 hover:bg-brand-600 text-white py-2 rounded-lg transition-colors">Select</a>
+                </div>
+            </div>
+
+             <!-- Template 3 -->
+             <div class="group bg-dark-800 rounded-xl border border-dark-700 overflow-hidden hover:shadow-2xl hover:shadow-brand-500/20 transition-all">
+                <div class="h-48 bg-gray-700 relative overflow-hidden">
+                    <!-- Mockup Content -->
+                    <div class="w-full h-full bg-purple-900 p-4 flex flex-col justify-between">
+                        <div class="text-center">
+                            <div class="h-6 w-24 bg-purple-400 mx-auto rounded mb-2"></div>
+                            <div class="h-2 w-40 bg-purple-800 mx-auto rounded"></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="h-12 bg-purple-800 rounded"></div>
+                            <div class="h-12 bg-purple-800 rounded"></div>
+                        </div>
+                    </div>
+                     <!-- Overlay -->
+                     <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="bg-brand-600 text-white px-4 py-2 rounded-full font-medium">Use Template</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold">Creative Dark</h3>
+                    <p class="text-gray-400 text-sm mt-1">Bold typography and dark aesthetics for designers.</p>
+                    <a href="builder.html?template=creative" class="mt-4 block w-full text-center bg-dark-700 hover:bg-brand-600 text-white py-2 rounded-lg transition-colors">Select</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Lucide script moved here -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js" onload="initTemplatesPage()"></script>
+    <script>
+        // This function is now called by the lucide script's 'onload' event
+        function initTemplatesPage() {
+            lucide.createIcons();
+        }
+    </script>
+    <script src="./templates.js"></script>
+
+</body>
+</html>

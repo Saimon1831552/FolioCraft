@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FolioCraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 500: '#0ea5e9', 600: '#0284c7' },
+                        dark: { 950: '#020617', 900: '#0f172a', 800: '#1e293b', 700: '#334155' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-950 text-white min-h-screen flex flex-col md:flex-row">
+
+    <!-- Sidebar -->
+    <aside class="w-full md:w-64 bg-dark-900 border-b md:border-b-0 md:border-r border-white/10 flex flex-col shrink-0">
+        <div class="h-16 flex items-center px-6 border-b border-white/10">
+            <i data-lucide="shield-check" class="h-6 w-6 text-brand-500 mr-2"></i>
+            <span class="font-bold text-lg tracking-wide">Admin Panel</span>
+        </div>
+
+        <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+            <button onclick="switchTab('overview')" id="nav-overview" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg text-white bg-brand-600">
+                <i data-lucide="bar-chart-2" class="h-5 w-5"></i>
+                Overview
+            </button>
+            <button onclick="switchTab('users')" id="nav-users" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg text-gray-400 hover:text-white hover:bg-dark-800 transition-colors">
+                <i data-lucide="users" class="h-5 w-5"></i>
+                User Management
+            </button>
+            <button onclick="switchTab('projects')" id="nav-projects" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg text-gray-400 hover:text-white hover:bg-dark-800 transition-colors">
+                <i data-lucide="layers" class="h-5 w-5"></i>
+                Projects
+            </button>
+            <button onclick="switchTab('templates')" id="nav-templates" class="nav-item w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg text-gray-400 hover:text-white hover:bg-dark-800 transition-colors">
+                <i data-lucide="layout-template" class="h-5 w-5"></i>
+                Templates
+            </button>
+        </nav>
+
+        <div class="p-4 border-t border-white/10">
+            <div class="flex items-center gap-3 mb-4 px-2">
+                <div class="h-8 w-8 rounded-full bg-brand-600 flex items-center justify-center text-sm font-bold">
+                    A
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <p class="text-sm font-medium text-white truncate" id="admin-name">Admin</p>
+                    <p class="text-xs text-gray-500 truncate">Super User</p>
+                </div>
+            </div>
+            <button id="logout-btn" class="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded-lg transition-colors border border-red-400/20">
+                <i data-lucide="log-out" class="h-4 w-4"></i>
+                Sign Out
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto h-screen bg-dark-950 p-4 md:p-8">
+        
+        <!-- Tab: Overview -->
+        <section id="tab-overview" class="tab-content block space-y-6">
+            <h1 class="text-3xl font-bold">Dashboard Overview</h1>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-dark-900 border border-white/10 p-6 rounded-xl">
+                    <h3 class="text-gray-400 text-sm font-medium uppercase">Total Users</h3>
+                    <p class="text-3xl font-bold text-white mt-2" id="stat-users">-</p>
+                </div>
+                <div class="bg-dark-900 border border-white/10 p-6 rounded-xl">
+                    <h3 class="text-gray-400 text-sm font-medium uppercase">Total Projects</h3>
+                    <p class="text-3xl font-bold text-white mt-2" id="stat-projects">-</p>
+                </div>
+                <div class="bg-dark-900 border border-white/10 p-6 rounded-xl">
+                    <h3 class="text-gray-400 text-sm font-medium uppercase">Active Templates</h3>
+                    <p class="text-3xl font-bold text-white mt-2" id="stat-templates">-</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Users -->
+        <section id="tab-users" class="tab-content hidden space-y-6">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">User Management</h1>
+                <button onclick="fetchUsers()" class="p-2 bg-dark-800 rounded-lg hover:bg-dark-700 transition"><i data-lucide="refresh-cw" class="w-4 h-4"></i></button>
+            </div>
+            <div class="bg-dark-900 border border-white/10 rounded-xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-400">
+                        <thead class="bg-dark-800 text-gray-200 uppercase font-medium">
+                            <tr>
+                                <th class="px-6 py-4">ID</th>
+                                <th class="px-6 py-4">Name</th>
+                                <th class="px-6 py-4">Email</th>
+                                <th class="px-6 py-4">Role</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body" class="divide-y divide-white/5">
+                            <!-- JS Generated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Projects -->
+        <section id="tab-projects" class="tab-content hidden space-y-6">
+             <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">Project Management</h1>
+                <button onclick="fetchProjects()" class="p-2 bg-dark-800 rounded-lg hover:bg-dark-700 transition"><i data-lucide="refresh-cw" class="w-4 h-4"></i></button>
+            </div>
+            <div class="bg-dark-900 border border-white/10 rounded-xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-gray-400">
+                        <thead class="bg-dark-800 text-gray-200 uppercase font-medium">
+                            <tr>
+                                <th class="px-6 py-4">Project</th>
+                                <th class="px-6 py-4">Owner</th>
+                                <th class="px-6 py-4">Subdomain</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projects-table-body" class="divide-y divide-white/5">
+                            <!-- JS Generated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Templates -->
+        <section id="tab-templates" class="tab-content hidden space-y-6">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">Template Management</h1>
+                <button onclick="document.getElementById('add-template-modal').classList.remove('hidden')" class="flex items-center gap-2 bg-brand-600 hover:bg-brand-500 text-white px-4 py-2 rounded-lg font-medium transition">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Add Template
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="templates-grid">
+                <!-- JS Generated -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Add Template Modal -->
+    <div id="add-template-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-dark-900 border border-white/10 rounded-xl w-full max-w-lg p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white">Add New Template</h3>
+                <button onclick="document.getElementById('add-template-modal').classList.add('hidden')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            <form id="add-template-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Template Name</label>
+                    <input type="text" id="tpl-name" class="w-full bg-dark-950 border border-dark-700 rounded-lg p-2 text-white focus:border-brand-500 focus:outline-none" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Slug (Unique ID)</label>
+                    <input type="text" id="tpl-slug" class="w-full bg-dark-950 border border-dark-700 rounded-lg p-2 text-white focus:border-brand-500 focus:outline-none" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Category</label>
+                    <select id="tpl-category" class="w-full bg-dark-950 border border-dark-700 rounded-lg p-2 text-white focus:border-brand-500 focus:outline-none">
+                        <option value="General">General</option>
+                        <option value="Photography">Photography</option>
+                        <option value="Business">Business</option>
+                        <option value="Design">Design</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Structure JSON</label>
+                    <textarea id="tpl-json" rows="4" class="w-full bg-dark-950 border border-dark-700 rounded-lg p-2 text-white font-mono text-xs focus:border-brand-500 focus:outline-none" placeholder='[{"type": "hero", "content": {}}]'></textarea>
+                </div>
+                <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white py-2 rounded-lg font-medium">Create Template</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit User Modal (New) -->
+    <div id="edit-user-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-dark-900 border border-white/10 rounded-xl w-full max-w-lg p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white">Edit User</h3>
+                <button onclick="document.getElementById('edit-user-modal').classList.add('hidden')" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            <form id="edit-user-form" class="space-y-4">
+                <input type="hidden" id="edit-user-id">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Full Name</label>
+                    <input type="text" id="edit-user-name" class="w-full bg-dark-950 border border-dark-700 rounded-lg p-2 text-white focus:border-brand-500 focus:outline-none" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Email</label>
+                    <input type="email" id="edit-user-email" class="w-full bg-dark-950 border border-dark-700 rounded-lg p-2 text-white focus:border-brand-500 focus:outline-none" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Role</label>
+                    <select id="edit-user-role" class="w-full bg-dark-950 border border-dark-700 rounded-lg p-2 text-white focus:border-brand-500 focus:outline-none">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-brand-600 hover:bg-brand-500 text-white py-2 rounded-lg font-medium">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin_dashboard.js"></script>
+</body>
+</html>
